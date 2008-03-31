@@ -87,3 +87,7 @@ _function_
 _function_
 *`rotate-rgb`* _`a rotation` => rgb-vector_
   This convenience function is equivalent to: {{{(hsv->rgb (rotate-hsv (rgb->hsv a) rotation))}}}
+
+_function_
+*`xmlify-rgb`* _`a` => x/html-color-string_
+  Turns an RGB value into a string of the form `#FFAADD`.
