@@ -80,7 +80,7 @@ _function_
 _function_
 *`rotate-hsv`* _`a rotation` => hsv-vector_
   Rotates the hue of a HSV color.  The rotation is expressed in degrees, rather than the 0.0-1.0 range used
-  by the rest of the library.  Creating palettes of complimentary and contrasting colors are readily thought of
+  by the rest of the library.  Creating palettes of complimentary and contrasting colors is often thought of
   in terms of rotating a color wheel, and I've used degrees here since that's more natural for me, at least, to
   think about.
 
