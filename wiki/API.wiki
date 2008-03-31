@@ -37,6 +37,8 @@ _function_
   This is the only way to create a literal HSV value the rest of the library will accept.  Each of the values has to
   be a float between 0.0 and 1.0.  A range or type problem will result in a `hsv-type-error` condition being raised.
 
+  Note that some HSV libraries represent the _h_ element in degrees — this one does not.
+
 _function_
 *`mix-rgb`* _`a b &key (alpha 0.5)` => rgb-vector_
   Blends two RGB colors.  By default the mix is even, but by setting the `:alpha` keyword you can weight the mix,
@@ -62,3 +64,22 @@ _function_
 _function_
 *`compliment-rgb`* _`a` => rgb-vector_
   Creates the compliment of the color using the forumla described at [http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html Adobe].
+
+_function_
+*`rgb->hsv`* _`a` => hsv-vector_
+  Converts an RGB value to HSV.
+
+_function_
+*`hsv->rgb`* _`a` => rgb-vector_
+  Converts and HSV value to RGB.
+
+_function_
+*`rotate-hsv`* _`a rotation` => hsv-vector_
+  Rotates the hue of a HSV color.  The rotation is expressed in degrees, rather than the 0.0-1.0 range used
+  by the rest of the library.  Palettes of complimentary and contrasting colors are readily though of
+  in terms of rotating a color wheel, and I've used degrees here since that's more natural for me, at least, to
+  think about.
+
+_function_
+*`rotate-rgb`* _`a rotation` => rgb-vector_
+  This convenience function is equivalent to: {{{(hsv->rgb (rotate-hsv (rgb->hsv a) rotation))}}}
