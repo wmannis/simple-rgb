@@ -1,6 +1,6 @@
 ;;; -*- mode: lisp; syntax: common-lisp; encoding: utf-8 -*-
 ;;;
-;;; $Id: simple-rgb.asd,v 1.1 2008-03-30 16:39:37-05 annis Exp annis $
+;;; $Id$
 ;;;
 ;;; Copyright (c) 2008 William S. Annis.  All rights reserved.
 ;;;

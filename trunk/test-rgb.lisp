@@ -1,4 +1,4 @@
-;;; $Id: test-rgb.lisp,v 1.4 2008-03-30 16:39:31-05 annis Exp annis $
+;;; $Id$
 ;;;
 ;;; For now this is just for testing during development, and isn't
 ;;; loadable via ASDF trickery.
