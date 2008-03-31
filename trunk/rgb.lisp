@@ -76,25 +76,23 @@
   (declare (type (float 0 1.0) alpha)
            (type rgb a b))
   (let ((c (rgb 0 0 0)))
-    (loop for i from 0 below 3
-          do (setf (aref c i)
-                   (round (+ (aref a i)
-                             (* alpha
-                                (- (aref b i)
-                                   (aref a i))))))
-          finally (return c))))
+    (dotimes (i 3 c)
+      (setf (aref c i)
+            (round (+ (aref a i)
+                      (* alpha
+                         (- (aref b i)
+                            (aref a i)))))))))
 
 ;;; This one overwrites the first argument with the mixed color.
 (defun mix-rgb! (a b &key (alpha 0.5))
   (declare (type (float 0 1.0) alpha)
            (type rgb a b))
-  (loop for i from 0 below 3
-        do (setf (aref a i)
-                 (round (+ (aref a i)
-                           (* alpha
-                              (- (aref b i)
-                                 (aref a i))))))
-        finally (return a)))
+  (dotimes (i 3 a)
+    (setf (aref a i)
+          (round (+ (aref a i)
+                    (* alpha
+                       (- (aref b i)
+                          (aref a i))))))))
 
 ;;; http://en.wikipedia.org/wiki/Grayscale
 (defun greyscale-rgb (a)
@@ -125,14 +123,13 @@
 ;;; This does nothing interesting to greys.
 (defun compliment-rgb (a)
   (declare (type rgb a))
-  (let ((min+max 
-         (loop for c across a
-               maximizing c into max
-               minimizing c into min
-               finally (return (+ min max)))))
-    (rgb (- min+max (aref a 0))
-         (- min+max (aref a 1))
-         (- min+max (aref a 2)))))
+  (let* ((r (aref a 0))
+         (g (aref a 1))
+         (b (aref a 2))
+         (min+max (+ (min r g b) (max r g b))))
+    (rgb (- min+max r)
+         (- min+max g)
+         (- min+max b))))
 
 (defun contrast-rgb (a &optional (cut 0.5))
   (declare (type rgb a))
@@ -203,7 +200,6 @@
     (hsv (mod (+ h scaled-rotation) 1.0) s v)))
 
 (defun rotate-rgb (a rotation)
-  (declare (type rgb a))
   (hsv->rgb (rotate-hsv (rgb->hsv a) rotation)))
 
 ;;; rgb.lisp ends here

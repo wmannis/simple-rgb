@@ -33,7 +33,7 @@
   :author "William S. Annis <wm.annis@gmail.com>"
   :version "0.01"
   :maintainer "William S. Annis <wm.annis@gmail.com>"
-  :licence "Artistic License"
+  :licence "MIT"
   :description "simple manipulation of {X|HT}ML RGB values"
 
   :components ((:file "package")
