@@ -4,7 +4,7 @@
 
 This library was designed to be used by another library which generates SVG files.  It is currently focused on the small set of basic color manipulations (lightening, compliments, etc) you might use to generate a color palette for a GUI or web page.
 
-It's currently known to work with SBCL (on OSX and Linux) and LispWorks (OSX).
+It's currently known to work with SBCL (on OSX and Linux) and !LispWorks (OSX).
 
 = Examples =
 
