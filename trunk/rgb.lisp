@@ -1,6 +1,6 @@
 ;;; -*- mode: lisp; syntax: common-lisp; package: simple-rgb encoding: utf-8 -*-
 ;;; Author: William S. Annis
-;;; Version: $Revision: 1.5 $
+;;; $Id$
 ;;;
 ;;; Copyright (c) 2008 William S. Annis.  All rights reserved.
 ;;;
@@ -73,7 +73,7 @@
 
 ;;; ALPHA weights the mix, 0.0 favoring the first color, 1.0 the second.
 (defun mix-rgb (a b &key (alpha 0.5))
-  (declare (type (float 0 1.0) alpha)
+  (declare (type (float 0.0 1.0) alpha)
            (type rgb a b))
   (let ((c (rgb 0 0 0)))
     (dotimes (i 3 c)
@@ -85,7 +85,7 @@
 
 ;;; This one overwrites the first argument with the mixed color.
 (defun mix-rgb! (a b &key (alpha 0.5))
-  (declare (type (float 0 1.0) alpha)
+  (declare (type (float 0.0 1.0) alpha)
            (type rgb a b))
   (dotimes (i 3 a)
     (setf (aref a i)
