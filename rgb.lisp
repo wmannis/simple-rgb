@@ -25,11 +25,6 @@
 ;;; OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 ;;; SUCH DAMAGE.
 
-
-;;; Description: simple manipulation of 24-bit RGB color values.
-;;; The colors are are simple vectors of the form #(R G B), with
-;;; 0 <= R,G,B <= 255.
-
 (in-package :simple-rgb)
 
 (deftype rgb ()
@@ -140,9 +135,9 @@
            (contrastify (aref a 1))
            (contrastify (aref a 2))))))
 
-(defun xmlify-rgb (a)
+(defun xmlify-rgb (a &optional (stream nil))
   (declare (type rgb a))
-  (format nil "#~2,'0X~2,'0X~2,'0X" (aref a 0) (aref a 1) (aref a 2)))
+  (format stream "#~2,'0X~2,'0X~2,'0X" (aref a 0) (aref a 1) (aref a 2)))
 
 
 (defun rgb->hsv (a)
