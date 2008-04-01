@@ -89,5 +89,6 @@ _function_
   This convenience function is equivalent to: {{{(hsv->rgb (rotate-hsv (rgb->hsv a) rotation))}}}
 
 _function_
-*`xmlify-rgb`* _`a` => x/html-color-string_
-  Turns an RGB value into a string of the form `#FFAADD`.
+*`xmlify-rgb`* _`a &optional (stream nil)` => x/html-color-string_
+  Turns an RGB value into a string of the form `#FFAADD`.  Optionally you can specify a stream designator
+  of the sort `format` expects.  By default it returns the string.
