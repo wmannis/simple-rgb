@@ -116,7 +116,7 @@
 
 ;;; http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html
 ;;; This does nothing interesting to greys.
-(defun compliment-rgb (a)
+(defun complement-rgb (a)
   (declare (type rgb a))
   (let* ((r (aref a 0))
          (g (aref a 1))
@@ -185,7 +185,7 @@
                     ((= i 4) (rgb-from-floats tv p v))
                     ((= i 5) (rgb-from-floats v p q)))))))))
 
-;;; (hsv->rgb (rotate-hsv (rgb->hsv color) 180)) == (compliment-rgb color)
+;;; (hsv->rgb (rotate-hsv (rgb->hsv color) 180)) == (complement-rgb color)
 (defun rotate-hsv (a rotation)
   (declare (type hsv a))
   (let ((h (aref a 0))

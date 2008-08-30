@@ -108,14 +108,14 @@
                :test #'rgb=))
 
 (addtest (rgb-tests)
-  compliment-0
-  (ensure-same (compliment-rgb (rgb 55 72 33))
+  complement-0
+  (ensure-same (complement-rgb (rgb 55 72 33))
                (hsv->rgb (rotate-hsv (rgb->hsv (rgb 55 72 33)) 180))
                :test #'rgb=))
 
 (addtest (rgb-tests)
-  compliment-1
-  (ensure-same (compliment-rgb (rgb 0 255 255))
+  complement-1
+  (ensure-same (complement-rgb (rgb 0 255 255))
                (rgb 255 0 0)
                :test #'rgb=))
 

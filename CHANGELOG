@@ -1,0 +1,4 @@
+0.02 - August 30 2008
+  * Evidently I thought colors were polite and misspelled complement
+  as compliment.  Updated package.lisp, rgb.lisp and test-rgb.lisp to
+  fix the spelling.
