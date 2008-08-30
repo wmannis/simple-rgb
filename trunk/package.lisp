@@ -39,7 +39,7 @@
            :darken-rgb
            :darken-rgb!
            :invert-rgb
-           :compliment-rgb
+           :complement-rgb
            :contrast-rgb
            :xmlify-rgb
            :rgb->hsv
