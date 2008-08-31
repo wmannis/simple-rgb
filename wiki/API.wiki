@@ -68,8 +68,8 @@ _function_
   Inverts a color.
 
 _function_
-*`compliment-rgb`* _`a` => rgb-vector_
-  Creates the compliment of the color using the forumla described at [http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html Adobe].
+*`complement-rgb`* _`a` => rgb-vector_
+  Creates the complement of the color using the forumla described at [http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html Adobe].
 
 _function_
 *`rgb->hsv`* _`a` => hsv-vector_
