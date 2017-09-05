@@ -45,7 +45,8 @@
            :rgb->hsv
            :hsv->rgb
            :rotate-hsv
-           :rotate-rgb))
+           :rotate-rgb
+           :parse))
 
 
 ;;; package.lisp ends here
