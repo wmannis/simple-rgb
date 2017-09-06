@@ -57,10 +57,22 @@
   ;; (CLHS 15.1.2.1).
   (unless (and (typep h '(float 0.0e0 1.0e0))
                (typep s '(float 0.0e0 1.0e0))
-               (typep v '(float 0.0e0 1.0e0)))               
+               (typep v '(float 0.0e0 1.0e0)))
     (error (make-condition 'hsv-type-error :bugged (vector h s v))))
   (make-array '(3) :element-type '(float 0.0e0 1.0e0)
                    :initial-contents (list h s v)))
+
+(defun parse (string)
+  (let* ((string (if (eq (aref string 0) #\#) (subseq string 1) string))
+         (length (length string))
+         (data
+          (if (< 3 length)
+              (loop for i from 0 to 4 by 2
+                 collect (parse-integer string :start i :end (+ 2 i) :radix 16))
+              (loop for i from 0 to 2
+                 for digit = (parse-integer string :start i :end (+ 1 i) :radix 16)
+                 collect (+ (* 16 digit) digit)))))
+    (apply #'rgb data)))
 
 
 (defparameter +rgb-black+ (rgb 0 0 0))
@@ -97,17 +109,17 @@
                       (* .11 (aref a 2))))))
     (rgb gs gs gs)))
 
-(defun lighten-rgb (a)
-  (mix-rgb a +rgb-white+))
+(defun lighten-rgb (a &key (alpha 0.5))
+  (mix-rgb a +rgb-white+ :alpha alpha))
 
-(defun lighten-rgb! (a)
-  (mix-rgb! a +rgb-white+))
+(defun lighten-rgb! (a &key (alpha 0.5))
+  (mix-rgb! a +rgb-white+ :alpha alpha))
 
-(defun darken-rgb (a)
-  (mix-rgb a +rgb-black+))
+(defun darken-rgb (a &key (alpha 0.5))
+  (mix-rgb a +rgb-black+ :alpha alpha))
 
-(defun darken-rgb! (a)
-  (mix-rgb! a +rgb-black+))
+(defun darken-rgb! (a &key (alpha 0.5))
+  (mix-rgb! a +rgb-black+ :alpha alpha))
 
 (defun invert-rgb (a)
   (rgb (- 255 (aref a 0))
