@@ -39,8 +39,8 @@ library will accept.  Each of the values has to be a float between 0.0
 and 1.0.  A range or type problem will result in a `hsv-type-error`
 condition being raised. 
 
-Note that some HSV libraries represent the _h_ element in degrees
-this one does not. 
+Note that some HSV libraries represent the _h_ element in degrees.
+This one does not. 
 
 _[function]_  
 **`mix-rgb`** _`a b &key (alpha 0.5)` => rgb-vector_  
