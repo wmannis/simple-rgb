@@ -14,7 +14,7 @@ It depends on no other libraries, but you will need
 ## Conditions and Restarts
 
 _[condition]_  
-**`hsv-type-error`**
+**`hsv-type-error`**  
 This condition is raised by *`hsv`* if any of the three values passed
 to it falls outside the range 0.0 through  1.0. 
 
