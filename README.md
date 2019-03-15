@@ -3,7 +3,11 @@
 This library was designed to be used by another library which
 generates SVG files.  It is currently focused on the small set of
 basic color manipulations (lightening, compliments, etc) you might use
-to generate a color palette for a GUI or web page. 
+to generate a color palette for a GUI or web page.
+
+(March 2019) The current all-singing, all-dancing color manipulation
+library is [https://github.com/privet-kitty/dufy](Dufy), which you
+should consider if you have serious color manipulation needs.
 
 ## Package
 The package name is *`:simple-rgb`*, with a single nickname, *`:rgb`*.
