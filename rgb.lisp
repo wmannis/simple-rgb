@@ -30,15 +30,19 @@
 (deftype rgb ()
   '(vector (unsigned-byte 8) 3))
 
+(declaim (inline rgb))
 (defun rgb (r g b)
   (make-array '(3) :element-type '(unsigned-byte 8)
                    :initial-contents (list r g b)))
+(declaim (notinline rgb))
 
+(declaim (inline rgb=))
 (defun rgb= (a b)
   (declare (type rgb a b))
   (and (= (aref a 0) (aref b 0))
        (= (aref a 1) (aref b 1))
        (= (aref a 2) (aref b 2))))
+(declaim (notinline rgb=))
 
 
 (deftype hsv ()
@@ -51,6 +55,7 @@
                  "all elements of HSV must be floats between 0.0 and 1.0: ~A"
                  (bugged-hsv-vector condition)))))
 
+(declaim (inline hsv))
 (defun hsv (h s v)
   ;; The :ELEMENT-TYPE option in MAKE-ARRAY will only raise a condition on
   ;; type oddities if you try to insert a float that wants too much space
@@ -61,7 +66,9 @@
     (error (make-condition 'hsv-type-error :bugged (vector h s v))))
   (make-array '(3) :element-type '(float 0.0e0 1.0e0)
                    :initial-contents (list h s v)))
+(declaim (notinline hsv))
 
+(declaim (inline parse))
 (defun parse (string)
   (let* ((string (if (eq (aref string 0) #\#) (subseq string 1) string))
          (length (length string))
@@ -73,12 +80,14 @@
                  for digit = (parse-integer string :start i :end (+ 1 i) :radix 16)
                  collect (+ (* 16 digit) digit)))))
     (apply #'rgb data)))
+(declaim (notinline parse))
 
 
 (defparameter +rgb-black+ (rgb 0 0 0))
 (defparameter +rgb-white+ (rgb 255 255 255))
 
 ;;; ALPHA weights the mix, 0.0 favoring the first color, 1.0 the second.
+(declaim (inline mix-rgb))
 (defun mix-rgb (a b &key (alpha 0.5))
   (declare (type (float 0.0 1.0) alpha)
            (type rgb a b))
@@ -89,8 +98,10 @@
                       (* alpha
                          (- (aref b i)
                             (aref a i)))))))))
+(declaim (notinline mix-rgb))
 
 ;;; This one overwrites the first argument with the mixed color.
+(declaim (inline mix-rgb!))
 (defun mix-rgb! (a b &key (alpha 0.5))
   (declare (type (float 0.0 1.0) alpha)
            (type rgb a b))
@@ -100,34 +111,48 @@
                     (* alpha
                        (- (aref b i)
                           (aref a i))))))))
+(declaim (notinline mix-rgb!))
 
 ;;; http://en.wikipedia.org/wiki/Grayscale
+(declaim (inline greyscale-rgb))
 (defun greyscale-rgb (a)
   (declare (type rgb a))
   (let ((gs (round (+ (* .3 (aref a 0))
                       (* .59 (aref a 1))
                       (* .11 (aref a 2))))))
     (rgb gs gs gs)))
+(declaim (notinline greyscale-rgb))
 
+(declaim (inline lighten-rgb))
 (defun lighten-rgb (a &key (alpha 0.5))
   (mix-rgb a +rgb-white+ :alpha alpha))
+(declaim (notinline lighten-rgb))
 
+(declaim (inline lighten-rgb!))
 (defun lighten-rgb! (a &key (alpha 0.5))
   (mix-rgb! a +rgb-white+ :alpha alpha))
+(declaim (notinline lighten-rgb!))
 
+(declaim (inline darken-rgb))
 (defun darken-rgb (a &key (alpha 0.5))
   (mix-rgb a +rgb-black+ :alpha alpha))
+(declaim (notinline darken-rgb))
 
+(declaim (inline darken-rgb!))
 (defun darken-rgb! (a &key (alpha 0.5))
   (mix-rgb! a +rgb-black+ :alpha alpha))
+(declaim (notinline darken-rgb!))
 
+(declaim (inline invert-rgb))
 (defun invert-rgb (a)
   (rgb (- 255 (aref a 0))
        (- 255 (aref a 1))
        (- 255 (aref a 2))))
+(declaim (notinline invert-rgb))
 
 ;;; http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html
 ;;; This does nothing interesting to greys.
+(declaim (inline complement-rgb))
 (defun complement-rgb (a)
   (declare (type rgb a))
   (let* ((r (aref a 0))
@@ -137,7 +162,9 @@
     (rgb (- min+max r)
          (- min+max g)
          (- min+max b))))
+(declaim (notinline complement-rgb))
 
+(declaim (inline contrast-rgb))
 (defun contrast-rgb (a &optional (cut 0.5))
   (declare (type rgb a))
   (let ((cutoff (round (* cut 255))))
@@ -146,12 +173,16 @@
       (rgb (contrastify (aref a 0))
            (contrastify (aref a 1))
            (contrastify (aref a 2))))))
+(declaim (notinline contrast-rgb))
 
+(declaim (inline xmlify-rgb))
 (defun xmlify-rgb (a &optional (stream nil))
   (declare (type rgb a))
   (format stream "#~2,'0X~2,'0X~2,'0X" (aref a 0) (aref a 1) (aref a 2)))
+(declaim (notinline xmlify-rgb))
 
 
+(declaim (inline rgb->hsv))
 (defun rgb->hsv (a)
   (declare (type rgb a))
   (let* ((r (/ (aref a 0) 255.0))
@@ -174,7 +205,9 @@
                                      (/ (- max r) (- max min)))))))
           (setf h (mod (/ h 6.0) 1))
           (hsv h s v)))))
+(declaim (notinline rgb->hsv))
 
+(declaim (inline hsv->rgb))
 (defun hsv->rgb (a)
   (declare (type hsv a))
   (let ((h (aref a 0))
@@ -196,8 +229,10 @@
                     ((= i 3) (rgb-from-floats p q v))
                     ((= i 4) (rgb-from-floats tv p v))
                     ((= i 5) (rgb-from-floats v p q)))))))))
+(declaim (notinline hsv->rgb))
 
 ;;; (hsv->rgb (rotate-hsv (rgb->hsv color) 180)) == (complement-rgb color)
+(declaim (inline rotate-hsv))
 (defun rotate-hsv (a rotation)
   (declare (type hsv a))
   (let ((h (aref a 0))
@@ -205,8 +240,11 @@
         (v (aref a 2))
         (scaled-rotation (/ rotation 360.0)))
     (hsv (mod (+ h scaled-rotation) 1.0) s v)))
+(declaim (notinline rotate-hsv))
 
+(declaim (inline rotate-rgb))
 (defun rotate-rgb (a rotation)
   (hsv->rgb (rotate-hsv (rgb->hsv a) rotation)))
+(declaim (notinline rotate-rgb))
 
 ;;; rgb.lisp ends here
