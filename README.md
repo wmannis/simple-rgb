@@ -6,14 +6,14 @@ basic color manipulations (lightening, compliments, etc) you might use
 to generate a color palette for a GUI or web page.
 
 (March 2019) The current all-singing, all-dancing color manipulation
-library is [https://github.com/privet-kitty/dufy](Dufy), which you
+library is [Dufy](https://github.com/privet-kitty/dufy), which you
 should consider if you have serious color manipulation needs.
 
 ## Package
 The package name is *`:simple-rgb`*, with a single nickname, *`:rgb`*.
 
 It depends on no other libraries, but you will need
-[http://common-lisp.net/project/lift/](LIFT) to run the unit tests. 
+[LIFT](http://common-lisp.net/project/lift/) to run the unit tests. 
 
 ## Conditions and Restarts
 
@@ -66,7 +66,7 @@ _[function]_
 **`greyscale-rgb`** _`a` => rgb-vector_  
 Converts a color to greyscale by setting each color element to the
 value _0.3r + 0.59g + 0.11b_.  See:
-[http://en.wikipedia.org/wiki/Grayscale](Grayscale). 
+[Grayscale](http://en.wikipedia.org/wiki/Grayscale). 
 
 _[function]_  
 **`invert-rgb`** _`a` => rgb-vector_  
@@ -74,7 +74,7 @@ Inverts a color.
 
 _[function]_  
 **`complement-rgb`** _`a` => rgb-vector_  
-Creates the complement of the color using the forumla described at [http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html](Adobe).
+Creates the complement of the color using the forumla described at [Adobe](http://livedocs.adobe.com/en_US/Illustrator/13.0/help.html?content=WS714a382cdf7d304e7e07d0100196cbc5f-6288.html).
 
 _[function]_  
 **`rgb->hsv`** _`a` => hsv-vector_  
