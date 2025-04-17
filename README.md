@@ -92,7 +92,7 @@ Creating palettes of complimentary and contrasting colors is often
 thought of in terms of rotating a color wheel, and I've used degrees
 here since that's more natural for me, at least, to think about. 
 
-_[function]_
+_[function]_  
 **`rotate-rgb`** _`a rotation` => rgb-vector_  
 This convenience function is equivalent to: 
 
